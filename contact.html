@@ -78,20 +78,79 @@
                 class="padding_left_15">Jönköping</span></a></div>
         </div>
         <div class="footer_left">
-          <div class="location_text"><a href="#"><img src="images/call-icon.png"><span class="padding_left_15">+46707679262</span></a></div>
+          <div class="location_text"><a href="#"><img src="images/call-icon.png"><span class="padding_left_15">kommer snart</span></a></div>
         </div>
       </div>
-      <!--<div class="contact_section">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mail_section">
-              <input type="" class="email_text" placeholder="Namn" name="Namn">
-              <input type="" class="email_text" placeholder="Email" name="Email">
-              <input type="" class="email_text" placeholder="Telefonnummer" name="Telefonnummer">
-              <textarea class="massage_text" placeholder="Meddelande" rows="5" id="comment" name="Meddelande"></textarea>
-              <div class="send_bt"><a href="#">skicka</a></div>
-            </div>
-          </div>-->
+        <form id="gform"
+        method="POST"
+        action="https://script.google.com/macros/s/AKfycbyOX9SduHXWKjl8-GOLXSqNd7UNxOvY1Mo0pm7peFIBKM6mjCVwjDlzGUSJwhjaVrkj/exec">
+  
+      <input type="text" class="email_text" placeholder="Namn" name="Namn" required>
+  
+      <input type="email" class="email_text" placeholder="Email" name="Email" required>
+  
+      <input type="text" class="email_text" placeholder="Telefonnummer" name="Telefonnummer">
+  
+      <textarea class="massage_text" placeholder="Meddelande" rows="5" name="Meddelande" required></textarea>
+  
+      <button type="submit" class="send_bt" style="border:none; background:none;">
+        skicka
+      </button>
+  
+      <!-- Tack-meddelande -->
+      <div id="gform-success" style="display:none; color:#1b7e1b; margin-top:10px;">
+        Tack! Ditt meddelande har skickats.
+      </div>
+  
+      <!-- Felmeddelande -->
+      <div id="gform-error" style="display:none; color:#b00020; margin-top:10px;">
+        Något gick fel. Försök igen senare.
+      </div>
+  
+    </div>
+  
+  </form>
+  
+  <script>
+    // AJAX-kod för att skicka formuläret utan sidladdning
+    (function () {
+      const form = document.getElementById('gform');
+      const ok = document.getElementById('gform-success');
+      const err = document.getElementById('gform-error');
+  
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Stoppar webbläsarens normala POST
+  
+        ok.style.display = 'none';
+        err.style.display = 'none';
+  
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+  
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form)
+          });
+  
+          if (response.ok) {
+            ok.style.display = 'block';
+            form.reset();
+          } else {
+            err.style.display = 'block';
+          }
+        } catch (error) {
+          err.style.display = 'block';
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    })();
+  </script>
+  
+
+    
+    
           <!--<div class="col-md-6">
             <div class="map_main">
               <div class="map-responsive">
